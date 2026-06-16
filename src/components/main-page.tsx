@@ -335,6 +335,9 @@ async function MainPage({ queries }: { queries: Record<string, string> }) {
 									previousStreak={player.previous_daily_streak || 0}
 									showBest={internalShowBest}
 									showCurrent={internalShowCurrent}
+									errorMessage={
+										player.is_errored ? "Error while fetching data" : undefined
+									}
 								/>
 							))}
 						</StreakersList>
@@ -357,6 +360,9 @@ async function MainPage({ queries }: { queries: Record<string, string> }) {
 									previousStreak={player.previous_daily_streak || 0}
 									showBest={internalShowBest}
 									showCurrent={internalShowCurrent}
+									errorMessage={
+										player.is_errored ? "Error while fetching data" : undefined
+									}
 								/>
 							))}
 						</StreakersList>
@@ -379,6 +385,9 @@ async function MainPage({ queries }: { queries: Record<string, string> }) {
 									previousStreak={player.previous_daily_streak || 0}
 									showBest={internalShowBest}
 									showCurrent={internalShowCurrent}
+									errorMessage={
+										player.is_errored ? "Error while fetching data" : undefined
+									}
 								/>
 							))}
 						</StreakersList>

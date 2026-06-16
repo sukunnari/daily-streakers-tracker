@@ -12,6 +12,7 @@ function StreakersItem({
 	previousStreak,
 	showCurrent,
 	showBest,
+	errorMessage,
 }: {
 	playerName: string;
 	osuId: number;
@@ -22,6 +23,7 @@ function StreakersItem({
 	previousStreak: number;
 	showCurrent?: boolean;
 	showBest?: boolean;
+	errorMessage?: string;
 }) {
 	let arrowTierSrc: string = "";
 	let altTier: string = "";
@@ -106,6 +108,16 @@ function StreakersItem({
 				<div class="streakers-list__tier">
 					<img class="streakers-list__tier-image" alt={""} src={arrowTierSrc} />
 					{altTier && <span class="sr-only">{altTier}</span>}
+				</div>
+			)}
+			{errorMessage && (
+				<div class="streakers-list__tier">
+					<img
+						class="streakers-list__tier-image"
+						alt={""}
+						src={"./assets/error-indicator.png"}
+					/>
+					<span class="sr-only">{errorMessage}</span>
 				</div>
 			)}
 		</li>
