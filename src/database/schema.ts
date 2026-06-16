@@ -9,6 +9,7 @@ export const players = sqliteTable("players", {
 	total_participation: int(),
 	current_daily_streak: int(),
 	best_daily_streak: int(),
+	is_errored: int({ mode: "boolean" }),
 	last_update: text()
 		.notNull()
 		.default(sql`(current_timestamp)`),
