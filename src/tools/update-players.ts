@@ -71,6 +71,7 @@ async function updatePlayerData(playerName: string) {
 					best_daily_streak: playerInsertData.best_daily_streak,
 					current_daily_streak: playerInsertData.current_streak,
 					total_participation: playerInsertData.total_participation,
+					is_errored: false,
 					last_update: sql`(current_timestamp)`,
 				})
 				.where(eq(players.osu_id, playerInsertData.id));
@@ -196,6 +197,24 @@ async function updatePlayerData(playerName: string) {
 		}
 	} catch (error) {
 		consoleUpdate.error(error);
+
+		try {
+			const existingPlayer = await db
+				.select()
+				.from(players)
+				.where(eq(players.name, playerName));
+
+			if (existingPlayer.length == 1) {
+				await db
+					.update(players)
+					.set({
+						is_errored: true,
+					})
+					.where(eq(players.osu_id, existingPlayer[0].osu_id));
+			}
+		} catch (error) {
+			consoleUpdate.error(error);
+		}
 	}
 }
 
