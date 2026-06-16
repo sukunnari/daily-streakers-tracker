@@ -6,7 +6,7 @@ class ConsolePrefixed {
 	}
 
 	log(anything: unknown) {
-		console.info(this.prefix, anything);
+		console.log(this.prefix, anything);
 	}
 
 	info(anything: unknown) {
