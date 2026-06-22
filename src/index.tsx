@@ -15,7 +15,7 @@ import { Cache } from "./utils/cache.js";
 
 import { OsuAPI } from "./osu-api.js";
 import { updateAllTrackedPlayers } from "./tools/update-players.js";
-import { crawlAndUpdateDailyPlayers } from "./tools/crawl-daily-update.js";
+import { updatePlayersFromLeaderboardCrawl } from "./tools/crawl-daily-update.js";
 import { UtcAlarmManager } from "./utils/alarm.js";
 import { db } from "./database/db.js";
 import { players, daily_tracker } from "./database/schema.js";
@@ -408,7 +408,7 @@ UtcAlarmManager.add({
 
 UtcAlarmManager.add({
 	name: "Crawler",
-	callback: crawlAndUpdateDailyPlayers,
+	callback: updatePlayersFromLeaderboardCrawl,
 	time: [
 		[23, 15],
 		[23, 45],

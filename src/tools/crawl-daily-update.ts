@@ -5,7 +5,7 @@ import { eq, sql } from "drizzle-orm";
 import { ConsolePrefixed } from "../utils/console-prefixed.js";
 const consolePref = new ConsolePrefixed("[crawlAndUpdateDailyPlayers]");
 
-async function crawlAndUpdateDailyPlayers() {
+async function getPlayersFromLeaderboardCrawl() {
 	const BASE_URL = "https://osu.ppy.sh";
 	const TODAY = new Date();
 	const DATE_URL = `${TODAY.getFullYear()}-${
@@ -109,6 +109,12 @@ async function crawlAndUpdateDailyPlayers() {
 	consolePref.info("Closing browser session");
 	await browser.close();
 
+	return allDailyPlayers;
+}
+
+async function updatePlayersFromLeaderboardCrawl() {
+	const allDailyPlayers = await getPlayersFromLeaderboardCrawl();
+
 	for (let i = 0; i < allDailyPlayers.length; i++) {
 		const player = allDailyPlayers[i];
 		const existing = await db
@@ -132,4 +138,4 @@ async function crawlAndUpdateDailyPlayers() {
 	}
 }
 
-export { crawlAndUpdateDailyPlayers };
+export { getPlayersFromLeaderboardCrawl, updatePlayersFromLeaderboardCrawl };
