@@ -17,6 +17,7 @@ async function getPlayersFromLeaderboardCrawl() {
 	const browser = await puppeteer.launch({ headless: true });
 	const page = await browser.newPage();
 	await page.setViewport({ width: 1080, height: 1024 });
+	page.setDefaultNavigationTimeout(90_000);
 
 	const allDailyPlayers: { id: number; name: string }[] = [];
 
