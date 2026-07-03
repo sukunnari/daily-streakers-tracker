@@ -395,10 +395,12 @@ serve(
 const updatePlayersTimes: [number, number][] = [];
 updatePlayersTimes.push([0, 10]);
 updatePlayersTimes.push([0, 40]);
-for (let i = 1; i <= 23; i++) {
+for (let i = 1; i <= 22; i++) {
 	updatePlayersTimes.push([i, 1]);
 	updatePlayersTimes.push([i, 35]);
 }
+updatePlayersTimes.push([23, 1]);
+updatePlayersTimes.push([23, 45]);
 
 UtcAlarmManager.add({
 	name: "Update Tracked Players",
@@ -410,8 +412,7 @@ UtcAlarmManager.add({
 	name: "Crawler",
 	callback: updatePlayersFromLeaderboardCrawl,
 	time: [
-		[23, 15],
-		[23, 45],
+		[23, 20],
 	],
 });
 
