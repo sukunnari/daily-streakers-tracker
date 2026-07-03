@@ -2,34 +2,13 @@ import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { trimTrailingSlash } from "hono/trailing-slash";
-import {
-	deleteCookie,
-	getCookie,
-	getSignedCookie,
-	setCookie,
-	setSignedCookie,
-	generateCookie,
-	generateSignedCookie,
-} from "hono/cookie";
-import { Cache } from "./utils/cache.js";
-
-import { OsuAPI } from "./osu-api.js";
 import { updateAllTrackedPlayers } from "./tools/update-players.js";
 import { updatePlayersFromLeaderboardCrawl } from "./tools/crawl-daily-update.js";
 import { UtcAlarmManager } from "./utils/alarm.js";
-import { db } from "./database/db.js";
-import { players, daily_tracker } from "./database/schema.js";
-import { eq, sql, not } from "drizzle-orm";
 import { assertString } from "./utils/assert.js";
-import { admin_session } from "./database/schema.js";
 import { adminSessionCleanup } from "./tools/admin-session-cleanup.js";
-import {
-	queueAddTrackedPlayers,
-	getQueueStatus,
-} from "./tools/add-tracked-players.js";
 import { jsxRenderer } from "hono/jsx-renderer";
 import { MainPage } from "./components/main-page.js";
-import { getDailyStreakers } from "./tools/get-daily-streakers.js";
 
 import { manageApi, managePageMiddleware } from "./web-api/manage.js";
 import { generalApi } from "./web-api/general.js";
@@ -39,9 +18,6 @@ const PORT = parseInt(`${process.env.SERVER_PORT}`);
 if (isNaN(PORT)) {
 	throw new Error("Please enter server port correctly!");
 }
-
-const ADMIN_USERNAME = assertString(process.env.ADMIN_USERNAME);
-const ADMIN_PASSWORD = assertString(process.env.ADMIN_PASSWORD);
 
 const app = new Hono();
 
