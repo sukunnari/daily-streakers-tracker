@@ -5,7 +5,6 @@ import { trimTrailingSlash } from "hono/trailing-slash";
 import { updateAllTrackedPlayers } from "./tools/update-players.js";
 import { updatePlayersFromLeaderboardCrawl } from "./tools/crawl-daily-update.js";
 import { UtcAlarmManager } from "./utils/alarm.js";
-import { assertString } from "./utils/assert.js";
 import { adminSessionCleanup } from "./tools/admin-session-cleanup.js";
 import { jsxRenderer } from "hono/jsx-renderer";
 import { MainPage } from "./components/main-page.js";
