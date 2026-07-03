@@ -14,7 +14,7 @@ Install [Git](https://git-scm.com/downloads) and [Nodejs](https://nodejs.org/en/
 ## Getting started
 0. Open the terminal
 1. Clone this repo:<br>
-`git clone https://github.com/thekrowned/daily-streakers-tracker.git`
+`git clone https://github.com/sukunnari/daily-streakers-tracker.git`
 2. Go to the newly created folder:<br>
 `cd daily-streakers-tracker`
 3. Install the dependencies:<br>

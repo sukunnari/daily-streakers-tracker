@@ -404,7 +404,7 @@ async function MainPage({ queries }: { queries: Record<string, string> }) {
 						<span>
 							This website is open source! Check it on&nbsp;
 							<a
-								href="https://github.com/thekrowned/daily-streakers-tracker"
+								href="https://github.com/sukunnari/daily-streakers-tracker"
 								target="_blank"
 								rel="noopener noreferrer"
 							>
