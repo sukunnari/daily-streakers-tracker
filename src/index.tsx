@@ -363,11 +363,6 @@ app.get("/api/manage/tracked-players", async (c) => {
 	});
 });
 
-app.get("/api/my-rank", async (c) => {
-	const myRank = await OsuAPI.getMyUserRank();
-	return c.text(`My osu rank is ${myRank}`);
-});
-
 app.get("/api/daily-streakers", async (c) => {
 	const cacheName = "daily-streakers";
 	const existingCache = Cache.get(cacheName);
