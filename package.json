@@ -11,8 +11,8 @@
   "dependencies": {
     "@hono/node-server": "^1.19.3",
     "better-sqlite3": "^12.4.1",
-    "drizzle-orm": "^0.44.6",
-    "hono": "^4.11.4",
+    "drizzle-orm": "^0.45.2",
+    "hono": "^4.12.24",
     "osu-api-v2-js": "^3.0.0",
     "puppeteer": "^24.22.3"
   },
