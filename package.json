@@ -14,7 +14,8 @@
     "drizzle-orm": "^0.45.2",
     "hono": "^4.12.24",
     "osu-api-v2-js": "^3.0.0",
-    "puppeteer": "^24.22.3"
+    "puppeteer": "^24.22.3",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
