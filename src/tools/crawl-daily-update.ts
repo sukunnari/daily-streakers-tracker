@@ -8,7 +8,7 @@ const consolePref = new ConsolePrefixed("[crawlAndUpdateDailyPlayers]");
 async function getPlayersFromLeaderboardCrawl() {
 	const BASE_URL = "https://osu.ppy.sh";
 	const TODAY = new Date();
-	const DATE_URL = `${TODAY.getFullYear()}-${
+	const DATE_URL = `${TODAY.getUTCFullYear()}-${
 		TODAY.getUTCMonth() + 1
 	}-${TODAY.getUTCDate()}`;
 	const ENTRY_URL = `${BASE_URL}/rankings/daily-challenge/${DATE_URL}`;
