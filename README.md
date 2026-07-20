@@ -19,11 +19,13 @@ Install [Git](https://git-scm.com/downloads) and [Nodejs](https://nodejs.org/en/
 `cd daily-streakers-tracker`
 3. Install the dependencies:<br>
 `npm i`
-4. Copy the **".env.sample"** file to **".env"**, then follow the instructions to fill in the empty variables
-5. Initialise the database table:<br>
+4. Install the crawler:<br>
+`npx puppeteer browsers install firefox`
+5. Copy the **".env.sample"** file to **".env"**, then follow the instructions to fill in the empty variables
+6. Initialise the database table:<br>
 `npm run db:migrate`
-6. Build the app:<br>
+7. Build the app:<br>
 `npm run build`
-7. Run the app:<br>
+8. Run the app:<br>
 `npm run start`
-8. Add players to be tracked by going to `/manage`. You can login by using the credentials provided in the .env file
+9. Add players to be tracked by going to `/manage`. You can login by using the credentials provided in the .env file
