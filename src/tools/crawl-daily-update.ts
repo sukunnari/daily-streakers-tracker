@@ -14,7 +14,10 @@ async function getPlayersFromLeaderboardCrawl() {
 	const ENTRY_URL = `${BASE_URL}/rankings/daily-challenge/${DATE_URL}`;
 
 	// Setup Puppeteer browser instance
-	const browser = await puppeteer.launch({ headless: true });
+	const browser = await puppeteer.launch({
+		browser: "firefox",
+		headless: true,
+	});
 	const page = await browser.newPage();
 	await page.setViewport({ width: 1080, height: 1024 });
 	page.setDefaultNavigationTimeout(90_000);
