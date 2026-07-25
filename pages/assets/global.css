@@ -84,10 +84,10 @@ html {
 	flex-direction: row;
 	background-color: var(--header-background);
 	color: var(--header-foreground);
-	box-shadow: 0 0 0.4rem var(--header-shadow);
-	position: sticky;
-	top: 0;
-	z-index: 100;
+	/* box-shadow: 0 0 0.4rem var(--header-shadow); */
+	/* position: sticky; */
+	/* top: 0; */
+	/* z-index: 100; */
 }
 
 .header__title {
@@ -99,6 +99,16 @@ main {
 	display: flex;
 	gap: 0.6rem;
 	flex-direction: column;
+}
+
+.top-card {
+	border-radius: 0.1rem;
+	background-color: var(--card-background);
+	color: var(--card-foreground);
+	box-shadow: 0 0.2rem 0.2rem var(--card-shadow);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
 }
 
 .card {

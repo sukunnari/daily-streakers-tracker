@@ -227,11 +227,11 @@ async function MainPage({ queries }: { queries: Record<string, string> }) {
 				<link rel="stylesheet" href="./assets/daily-streakers.css?v=20260411" />
 			</head>
 			<body>
-				<header class="header">
-					<h1 class="header__title">Daily Streakers Tracker</h1>
-				</header>
 				<main>
-					<Card>
+					<div class="top-card">
+						<header class="header">
+							<h1 class="header__title">Daily Streakers Tracker</h1>
+						</header>
 						<div class="sorter" hx-boost>
 							<ul class="sorter__list">
 								<span class="sorter__label">Sort by:</span>
@@ -316,7 +316,8 @@ async function MainPage({ queries }: { queries: Record<string, string> }) {
 								})}
 							</ul>
 						</div>
-					</Card>
+					</div>
+
 					<Card
 						title="Full Streakers"
 						descriptions="Full streakers are those who never break their streaks since day
