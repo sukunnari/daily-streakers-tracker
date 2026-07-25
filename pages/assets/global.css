@@ -219,3 +219,36 @@ main {
 	position: absolute;
 	overflow: hidden;
 }
+
+.scroll-to-top {
+	transition: linear 0.1s;
+	background-color: var(--button-primary-background);
+	color: var(--button-primary-foreground);
+	border: none;
+	border-radius: 1000px;
+	height: 2.4rem;
+	width: 2.4rem;
+	position: fixed;
+	bottom: 0.9rem;
+	right: 0.9rem;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.scroll-to-top:hover {
+	transition: linear 0.1s;
+	background-color: var(--button-primary-background-hover);
+	color: var(--button-primary-foreground);
+}
+
+.scroll-to-top.visible { 
+	display: flex;
+}
+
+.scroll-to-top img {
+	height: 1.2rem;
+	width: 1.2rem;
+	filter: invert(1);
+}

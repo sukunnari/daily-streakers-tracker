@@ -414,10 +414,17 @@ async function MainPage({ queries }: { queries: Record<string, string> }) {
 							.
 						</span>
 					</footer>
+					<button className="scroll-to-top" title="Scroll to top">
+						<img src="./assets/arrow-up.png" alt="" />
+					</button>
 				</main>
 				<script
 					type="text/javascript"
 					src="./library/htmx.min.js?rev=20260411"
+				></script>
+				<script
+					type="text/javascript"
+					src="./assets/scroll-to-top.js?v=20260725"
 				></script>
 				{/* <script
 					type="text/javascript"
