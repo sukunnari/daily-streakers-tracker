@@ -5,6 +5,7 @@ import { eq, sql } from "drizzle-orm";
 import { ConsolePrefixed } from "../utils/console-prefixed.js";
 const consolePref = new ConsolePrefixed("[crawlAndUpdateDailyPlayers]");
 import { parse as htmlParse } from "node-html-parser";
+import { sleep } from "../utils/sleep.js";
 
 async function getPlayersFromLeaderboardCrawlWithBrowser() {
 	const BASE_URL = "https://osu.ppy.sh";
@@ -133,6 +134,7 @@ async function getPlayersFromLeaderboardCrawlWithParser() {
 		const currentBrowsingUrl: string = browsingUrl;
 		let nextBrowsingUrl = null;
 		consolePref.info(`Navigating ${browsingUrl}`);
+		await sleep(3_000);
 		try {
 			// Navigate to the specified url
 			const pageFetcher = await fetch(currentBrowsingUrl);
