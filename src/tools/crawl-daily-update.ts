@@ -145,28 +145,30 @@ async function getPlayersFromLeaderboardCrawlWithParser() {
 
 			const playersPerPage: typeof allDailyPlayers = [];
 
-			if (playerListContainer) {
-				// Get data by querying inside the container
-				const playerRows = playerListContainer.querySelectorAll("tr");
-
-				playerRows.forEach((row) => {
-					// Try to get player id & name
-					const retrievedId = parseInt(
-						row
-							.querySelector(".ranking-page-table-main__link.js-usercard")
-							?.getAttribute("data-user-id") ?? "",
-					);
-					const retrievedName = row.querySelector(
-						".ranking-page-table-main__link.js-usercard > span",
-					)?.textContent;
-
-					// Push values with their correct types
-					playersPerPage.push({
-						id: isNaN(retrievedId) ? 0 : retrievedId,
-						name: retrievedName ?? "",
-					});
-				});
+			if (!playerListContainer) {
+				throw new Error("Player list not detected");
 			}
+
+			// Get data by querying inside the container
+			const playerRows = playerListContainer.querySelectorAll("tr");
+
+			playerRows.forEach((row) => {
+				// Try to get player id & name
+				const retrievedId = parseInt(
+					row
+						.querySelector(".ranking-page-table-main__link.js-usercard")
+						?.getAttribute("data-user-id") ?? "",
+				);
+				const retrievedName = row.querySelector(
+					".ranking-page-table-main__link.js-usercard > span",
+				)?.textContent;
+
+				// Push values with their correct types
+				playersPerPage.push({
+					id: isNaN(retrievedId) ? 0 : retrievedId,
+					name: retrievedName ?? "",
+				});
+			});
 
 			playersPerPage.forEach((player) => {
 				if (player.id || player.name) {
