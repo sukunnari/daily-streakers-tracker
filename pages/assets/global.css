@@ -235,6 +235,7 @@ main {
 	justify-content: center;
 	align-items: center;
 	cursor: pointer;
+	z-index: 10;
 }
 
 .scroll-to-top:hover {
