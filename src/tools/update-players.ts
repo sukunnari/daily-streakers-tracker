@@ -118,13 +118,14 @@ async function updatePlayerData(playerName: string) {
 				: null;
 
 		const streakerInsertData = {
-			id: user.id,
-			has_played_today: playedToday,
-			full_streaker: is_full_streaker,
+			id: user.id, // source: api
+			has_played_today: playedToday, // api with calculation
+			full_streaker: is_full_streaker, // api with calculation
 			is_streaking:
 				user.daily_challenge_user_stats.daily_streak_current >= 2
 					? true
 					: false,
+			// api (calculated inline)
 		};
 
 		const existingStreak = await db
@@ -178,10 +179,10 @@ async function updatePlayerData(playerName: string) {
 			await db
 				.update(daily_tracker)
 				.set({
-					full_streaker: streakerInsertData.full_streaker,
-					has_played_today: streakerInsertData.has_played_today,
-					is_streaking: streakerInsertData.is_streaking,
-					previous_daily_streak: previousDailyStreak,
+					full_streaker: streakerInsertData.full_streaker, // source: api w/calc
+					has_played_today: streakerInsertData.has_played_today, // api w/ calc
+					is_streaking: streakerInsertData.is_streaking, // api w/ calc
+					previous_daily_streak: previousDailyStreak, // api, db w/ calc
 					last_update: sql`(current_timestamp)`,
 				})
 				.where(eq(daily_tracker.osu_id, streakerInsertData.id));
