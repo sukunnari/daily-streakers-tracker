@@ -110,20 +110,20 @@ async function updatePlayersFromLeaderboardCrawl() {
 
 	for (let i = 0; i < allDailyPlayers.length; i++) {
 		const player = allDailyPlayers[i];
-		const existing = await db
+		const existingTrackerArray = await db
 			.select()
 			.from(daily_tracker)
 			.where(eq(daily_tracker.osu_id, player.id));
 
-		if (existing.length == 1) {
-			const existingPlayer = existing[0];
+		if (existingTrackerArray.length == 1) {
+			const existingTracker = existingTrackerArray[0];
 			await db
 				.update(daily_tracker)
 				.set({
-					full_streaker: existingPlayer.full_streaker,
+					full_streaker: existingTracker.full_streaker,
 					has_played_today: true,
-					previous_daily_streak: existingPlayer.previous_daily_streak,
-					is_streaking: existingPlayer.is_streaking ? true : false,
+					previous_daily_streak: existingTracker.previous_daily_streak,
+					is_streaking: existingTracker.is_streaking ? true : false,
 					last_update: sql`(current_timestamp)`,
 				})
 				.where(eq(daily_tracker.osu_id, player.id));
