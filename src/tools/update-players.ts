@@ -7,11 +7,12 @@ import { db } from "../database/db.js";
 import { players, daily_tracker } from "../database/schema.js";
 import { eq, sql } from "drizzle-orm";
 import { timeoutReject } from "../utils/timeout-reject.js";
+import { BEGINNING_DATE, MINIMAL_STREAKING_VALUE } from "../constants.js";
 
 const consoleTrack = new ConsolePrefixed("[updateAllTrackedPlayers]");
 const consoleUpdate = new ConsolePrefixed("[updatePlayer]");
 
-const beginningDate = new Date("2024-07-25T00:00:00+00:00");
+const beginningDate = BEGINNING_DATE;
 
 async function updatePlayerData(playerName: string) {
 	try {
@@ -122,7 +123,8 @@ async function updatePlayerData(playerName: string) {
 			has_played_today: playedToday, // api with calculation
 			full_streaker: is_full_streaker, // api with calculation
 			is_streaking:
-				user.daily_challenge_user_stats.daily_streak_current >= 2
+				user.daily_challenge_user_stats.daily_streak_current >=
+				MINIMAL_STREAKING_VALUE
 					? true
 					: false,
 			// api (calculated inline)
