@@ -115,18 +115,96 @@ async function updatePlayersFromLeaderboardCrawl() {
 			.from(daily_tracker)
 			.where(eq(daily_tracker.osu_id, player.id));
 
-		if (existingTrackerArray.length == 1) {
+		const existingPlayerArray = await db
+			.select()
+			.from(players)
+			.where(eq(players.osu_id, player.id));
+
+		// Please note that this is only an attempt to sync
+		// player stats based on initial states that were
+		// provided by the API fetcher.
+		// You should NOT run this BEFORE the API fetcher
+		// did its tasks first. If the fetcher runs at 1 UTC,
+		// schedule this script at 1:30 UTC.
+		if (existingTrackerArray.length == 1 && existingPlayerArray.length == 1) {
 			const existingTracker = existingTrackerArray[0];
-			await db
-				.update(daily_tracker)
-				.set({
-					full_streaker: existingTracker.full_streaker,
-					has_played_today: true,
-					previous_daily_streak: existingTracker.previous_daily_streak,
-					is_streaking: existingTracker.is_streaking ? true : false,
-					last_update: sql`(current_timestamp)`,
-				})
-				.where(eq(daily_tracker.osu_id, player.id));
+			const existingPlayer = existingPlayerArray[0];
+
+			// Do not update errored players
+			// They potentially contain outdated information
+			if (existingPlayer.is_errored === true) {
+				continue;
+			}
+
+			// Do not update if it's new day
+			// We need to convert everything into UTC at 00:00
+			// To make day calculation possible
+			const lastUpdate: Date = (() => {
+				const last = new Date(existingTracker.last_update + "+00");
+				return new Date(
+					Date.UTC(
+						last.getUTCFullYear(),
+						last.getUTCMonth(),
+						last.getUTCDate(),
+					),
+				);
+			})();
+			const today: Date = (() => {
+				const now = new Date();
+				return new Date(
+					Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()),
+				);
+			})();
+
+			const timeSinceLastUpdate = today.getTime() - lastUpdate.getTime();
+			const daySinceLastUpdate = timeSinceLastUpdate / 86400000;
+
+			if (daySinceLastUpdate > 0) {
+				continue;
+			}
+
+			if (existingTracker.has_played_today == false) {
+				await db
+					.update(daily_tracker)
+					.set({
+						full_streaker: existingTracker.full_streaker,
+						has_played_today: true,
+						previous_daily_streak:
+							typeof existingPlayer.current_daily_streak == "number"
+								? existingPlayer.current_daily_streak
+								: existingTracker.previous_daily_streak,
+						is_streaking: existingTracker.is_streaking ? true : false,
+						last_update: sql`(current_timestamp)`,
+					})
+					.where(eq(daily_tracker.osu_id, player.id));
+
+				await db
+					.update(players)
+					.set({
+						current_daily_streak:
+							typeof existingPlayer.current_daily_streak == "number"
+								? existingPlayer.current_daily_streak + 1
+								: existingPlayer.current_daily_streak,
+						best_daily_streak: (() => {
+							let bestDailyStreak = existingPlayer.best_daily_streak;
+							if (typeof existingPlayer.best_daily_streak == "number") {
+								if (
+									Number(existingPlayer.best_daily_streak) ===
+									Number(existingPlayer.current_daily_streak)
+								) {
+									bestDailyStreak = existingPlayer.best_daily_streak + 1;
+								}
+							}
+							return bestDailyStreak;
+						})(),
+						total_participation:
+							typeof existingPlayer.total_participation == "number"
+								? existingPlayer.total_participation + 1
+								: existingPlayer.total_participation,
+						last_update: sql`(current_timestamp)`,
+					})
+					.where(eq(players.osu_id, player.id));
+			}
 		}
 	}
 }
